@@ -7,12 +7,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photos.view.PhotosController">
    <children>
-      <Text layoutX="115.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="photos">
+      <Text layoutX="540.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="admin">
          <font>
             <Font size="29.0" />
          </font>
       </Text>
-      <Button fx:id="testjump_quit" layoutX="426.0" layoutY="121.0" mnemonicParsing="false" onAction="#quit" text="quit" />
-      <Button fx:id="testjump_tologin" layoutX="258.0" layoutY="188.0" mnemonicParsing="false" onAction="#toLogin" text="to Login" />
+      <Button fx:id="testjump_quit" layoutX="571.0" layoutY="244.0" mnemonicParsing="false" onAction="#quit" text="quit" />
+      <Button fx:id="testjump_tologin" layoutX="306.0" layoutY="344.0" mnemonicParsing="false" onAction="#toLogin" text="to Login" />
    </children>
 </AnchorPane>
