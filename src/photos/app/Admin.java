@@ -10,6 +10,7 @@ public class Admin {
 	
 	public static boolean addUser(String username) {
 		
+		if (username.equals("admin")) { return false; }
 		for (User u : userlist) {
 			if (u.getUsername().equals(username)) {
 				return false;
