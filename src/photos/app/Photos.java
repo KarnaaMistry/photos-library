@@ -24,13 +24,31 @@ public class Photos extends Application {
 
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("Photos");
+		primaryStage.setTitle("Photos Login");
 		primaryStage.setResizable(false);
 		primaryStage.show(); 
 
 	}
 
 	public static void main(String[] args) {
+		
+		//Code for testing the admin / user / login environment
+		
+		if (Admin.addUser("karnaa123"))
+			System.out.println("success");
+		else
+			System.out.println("failure");
+		
+		if (Admin.addUser("fin123"))
+			System.out.println("success");
+		else
+			System.out.println("failure");
+		
+		if (Admin.addUser("karnaa123"))
+			System.out.println("success");
+		else
+			System.out.println("failure");
+		
 		launch(args);
 
 	}
