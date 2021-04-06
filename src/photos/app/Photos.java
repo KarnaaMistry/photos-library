@@ -1,5 +1,8 @@
 package photos.app;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -32,22 +35,26 @@ public class Photos extends Application {
 
 	public static void main(String[] args) {
 		
-		//Code for testing the admin / user / login environment
+		//test code
 		
-		if (Admin.addUser("karnaa123"))
-			System.out.println("success");
-		else
-			System.out.println("failure");
+		Photo myPhoto = new Photo("I took this in new brunswick lol");
 		
-		if (Admin.addUser("fin123"))
-			System.out.println("success");
-		else
-			System.out.println("failure");
+		if (myPhoto.addTag("location", "New Brunswick")) { System.out.println("1 Success"); }
+		if (!myPhoto.addTag("location", "New York")) { System.out.println("2 Failure"); }
+		if (myPhoto.addTag("person", "Karnaa")) { System.out.println("3 Success"); }
+		if (myPhoto.addTag("person", "Fin")) { System.out.println("4 Success"); }
 		
-		if (Admin.addUser("karnaa123"))
-			System.out.println("success");
-		else
-			System.out.println("failure");
+		List<Tag> taglist = myPhoto.getTags();
+		
+		for (Tag t : taglist) {
+			System.out.println(t.getTagname() + ", " + t.getTagvalue());
+		}
+		
+		System.out.println("``");
+		
+		for (String str : Tag.tagTypes) {
+			System.out.println(str);
+		}
 		
 		launch(args);
 
