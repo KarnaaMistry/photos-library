@@ -2,10 +2,15 @@ package photos.app;
 
 import java.util.Calendar;
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Photo {
+public class Photo implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 788663239606276282L;
 	private Calendar date;
 	private String caption;
 	private ArrayList<Tag> tags;

@@ -55,7 +55,7 @@ public class PhotosController {
 			title = "Admin";
 		} else {
 			User v = null;
-			for (User u : Admin.userlist) {
+			for (User u : Photos.admin.getUserlist()) {
 				if (u.getUsername().equals(name)) { v = u; break; }
 			} 
 			if (v == null) { 

@@ -1,36 +1,67 @@
 package photos.app;
 
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Admin {
+public class Admin implements Serializable {
 	
-	public static List<User> userlist = new ArrayList<User>();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6389355645645133638L;
+	private List<User> userlist;
 	
-	public static boolean addUser(String username) {
+	public Admin() {
+		this.userlist = new ArrayList<User>();
+	}
+	
+	public List<User> getUserlist() {
+		return this.userlist;
+	}
+	
+	public void loadUser(User u) {
+		this.userlist.add(u);
+	}
+	
+	public boolean addUser(String username) {
 		
 		if (username.equals("admin")) { return false; }
-		for (User u : userlist) {
+		for (User u : this.userlist) {
 			if (u.getUsername().equals(username)) {
 				return false;
 			}
 		}
-		userlist.add(new User(username));
+		this.userlist.add(new User(username));
 		return true;
 	}
 	
-	public static boolean delUser(String username) {
+	public boolean delUser(String username) {
 		User u = null;
-		for (User v : userlist) {
+		for (User v : this.userlist) {
 			if (v.getUsername().equals(username)) {
 				u = v;
 				break;
 			}
 		}
 		if (u == null) { return false; }
-		userlist.remove(u);
+		this.userlist.remove(u);
 		return true;
 	}
+	
+	public String toString() {
+		String str = "";
+		for (User u : this.userlist) {
+			str = str + u.getUsername() + "\n";
+		}
+		return str; 
+	}
+	
+	
+	
+	
+	
+	
 
 }
