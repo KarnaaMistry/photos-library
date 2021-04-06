@@ -8,15 +8,23 @@ public class Tag {
 	private String tagname;
 	private String tagvalue;
 	
-	public static List<String> tagTypes = new ArrayList<String>();
+	public static List<String> tagTypes;
 	
 	public Tag(String tname, String tval) {
 		this.tagname = tname;
 		this.tagvalue = tval;
 		
+		if (tagTypes == null) {
+			tagTypes = new ArrayList<String>();
+		}
 		if (!tagTypes.contains(tname)) {
 			tagTypes.add(tname);
 		}
+	}
+	
+	public Tag(String tname, String tval, int flag) {
+		this.tagname = tname;
+		this.tagvalue = tval;
 	}
 	
 	public String getTagname() {

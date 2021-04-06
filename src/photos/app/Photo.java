@@ -35,13 +35,23 @@ public class Photo {
 			}
 		}
 		
-		Tag x = new Tag(name, value);
+		Tag x = new Tag(name, value, 0);
 		if (this.tags.contains(x)) { return false; }
 		
 		this.tags.add(x);
 		return true;
 	
+	}
 	
+	public boolean deleteTag(String tname, String tvalue) {
+		String name = tname.trim();
+		String value = tvalue.trim();
+		
+		Tag temp = new Tag(name, value, 0);
+		if (!this.tags.contains(temp)) { return false; }
+		
+		this.tags.remove(temp);
+		return true;
 	}
 	
 	
