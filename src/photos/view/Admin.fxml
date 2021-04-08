@@ -11,7 +11,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photos.view.AdminController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="413.0" layoutX="207.0" layoutY="183.0" stroke="#00000029" strokeType="INSIDE" width="312.0" />
-      <Text layoutX="557.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator Sub-system" textAlignment="CENTER">
+      <Text layoutX="561.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator Subsystem" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
@@ -45,7 +45,7 @@
          </font>
       </Text>
       <Button fx:id="create_user" layoutX="841.0" layoutY="444.0" mnemonicParsing="false" onAction="#handleCreate" prefHeight="25.0" prefWidth="95.0" text="Create User" />
-      <Text fx:id="error_create" fill="#bf0000" layoutX="762.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="252.19580078125">
+      <Text fx:id="error_create" fill="#bf0000" layoutX="762.0" layoutY="506.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="252.19580078125">
          <font>
             <Font size="14.0" />
          </font>
