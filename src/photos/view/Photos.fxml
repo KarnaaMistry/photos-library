@@ -5,14 +5,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photos.view.PhotosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photos.view.PhotosController">
    <children>
       <Text layoutX="115.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="photos">
          <font>
             <Font size="29.0" />
          </font>
       </Text>
-      <Button fx:id="testjump_quit" layoutX="426.0" layoutY="121.0" mnemonicParsing="false" onAction="#quit" text="quit" />
-      <Button fx:id="testjump_tologin" layoutX="258.0" layoutY="188.0" mnemonicParsing="false" onAction="#toLogin" text="to Login" />
+      <Button fx:id="quit" layoutX="426.0" layoutY="121.0" mnemonicParsing="false" onAction="#quit" text="quit" />
+      <Button fx:id="logout" layoutX="258.0" layoutY="188.0" mnemonicParsing="false" onAction="#logout" text="to Login" />
+      <Text layoutX="221.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently logged in as:" wrappingWidth="133.13671875" />
+      <Text fx:id="username_display" layoutX="382.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="105.13671875" />
    </children>
 </AnchorPane>

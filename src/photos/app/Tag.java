@@ -1,24 +1,27 @@
 package photos.app;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tag {
+import photos.view.PhotosController;
+
+public class Tag implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5683892459737750416L;
 	private String tagname;
 	private String tagvalue;
-	
-	public static List<String> tagTypes;
 	
 	public Tag(String tname, String tval) {
 		this.tagname = tname;
 		this.tagvalue = tval;
 		
-		if (tagTypes == null) {
-			tagTypes = new ArrayList<String>();
-		}
-		if (!tagTypes.contains(tname)) {
-			tagTypes.add(tname);
+		User current = PhotosController.currUser;
+		if (!current.getTagTypes().contains(tname)) {
+			current.getTagTypes().add(tname);
 		}
 	}
 	

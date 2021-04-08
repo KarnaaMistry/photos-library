@@ -14,9 +14,14 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 2218609123236918959L;
 	private String username;
 	private List<Album> albums;
+	private List<String> tagTypes;
 	
 	public User(String username) {
 		this.username = username;
+		this.albums = new ArrayList<Album>();
+		this.tagTypes = new ArrayList<String>();
+		this.tagTypes.add("location");
+		this.tagTypes.add("person");
 	}
 	
 	public String getUsername() {
@@ -27,9 +32,12 @@ public class User implements Serializable {
 		return this.albums;
 	}
 	
+	public List<String> getTagTypes() {
+		return this.tagTypes;
+	}
+	
 	public static void writeUser(User user) throws FileNotFoundException, IOException {
 		File myUser = new File(user.getUsername() + ".dat");
-		myUser.createNewFile();
 		ObjectOutputStream oos = new ObjectOutputStream(
 				new FileOutputStream(storeDir + File.separator + myUser));
 				oos.writeObject(user);

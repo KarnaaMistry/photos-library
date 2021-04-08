@@ -6,28 +6,29 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photos.view.PhotosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photos.view.LoginController">
    <children>
-      <Text layoutX="497.0" layoutY="76.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Photos" textAlignment="CENTER">
+      <Text layoutX="606.0" layoutY="64.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Photos" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="33.0" />
          </font>
       </Text>
-      <Button fx:id="testjump_tophotos" layoutX="527.0" layoutY="385.0" mnemonicParsing="false" onAction="#login" text="Login" />
-      <Button fx:id="testjump_quit" layoutX="1032.0" layoutY="21.0" mnemonicParsing="false" onAction="#quit" text="Quit">
-         <font>
-            <Font size="14.0" />
-         </font></Button>
-      <Text layoutX="362.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="username:">
+      <Button fx:id="login_button" layoutX="630.0" layoutY="444.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="60.0" text="Login" />
+      <Text layoutX="471.0" layoutY="416.0" strokeType="OUTSIDE" strokeWidth="0.0" text="username:">
          <font>
             <Font size="19.0" />
          </font>
       </Text>
-      <TextField fx:id="login_username" layoutX="465.0" layoutY="337.0" prefHeight="30.0" prefWidth="172.0" />
-      <Text fx:id="login_error" fill="#bf0000" layoutX="424.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="252.19580078125">
+      <TextField fx:id="login_username" layoutX="573.0" layoutY="395.0" prefHeight="30.0" prefWidth="172.0" />
+      <Text fx:id="login_error" fill="#bf0000" layoutX="533.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="252.19580078125">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
+      <Button fx:id="quit_button" layoutX="1247.0" layoutY="21.0" mnemonicParsing="false" onAction="#quit" prefHeight="30.0" prefWidth="51.0" text="Quit">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

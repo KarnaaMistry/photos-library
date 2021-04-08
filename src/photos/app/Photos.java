@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import photos.view.PhotosController;
+import photos.view.LoginController;
 
 public class Photos extends Application {
 	
@@ -23,9 +23,9 @@ public class Photos extends Application {
 				getClass().getResource("/photos/view/Login.fxml"));
 		AnchorPane root = (AnchorPane)loader.load();
 
-		PhotosController photosController = 
+		LoginController home = 
 				loader.getController();
-		photosController.start(primaryStage);
+		home.start(primaryStage);
 
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
@@ -95,9 +95,8 @@ public class Photos extends Application {
 		admin = loadAdmin();
 		//test code
 		
-		admin.addUser("Karnaa");
 		
-		System.out.println(admin);
+		//System.out.println(admin);
 		
 		
 		

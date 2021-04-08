@@ -24,36 +24,52 @@ import javafx.stage.Stage;
 
 
 
-public class PhotosController {
+public class LoginController {
 	
-	public static User currUser;
-	
-	@FXML Button logout;
-	@FXML Button quit;
-	@FXML Text username_display;
-	@FXML Button test_printer;
-
+	@FXML Button login_button;
+	@FXML Button quit_button;
+	@FXML TextField login_username;
+	@FXML Text login_error;
 	
 	public void initialize() {
-		username_display.setText(currUser.getUsername());
+		login_error.setText("");
 	}
 	
-	@FXML void logout(ActionEvent event) {
+	@FXML void login(ActionEvent event) throws IOException {
+		String name = login_username.getText();
+		String loginpath;
+		String title;
+		User v = null;
+		if (name.equals("admin")) {
+			loginpath = "/photos/view/Admin.fxml";
+			title = "Admin";
+		} else {
+			for (User u : Photos.admin.getUserlist()) {
+				if (u.getUsername().equals(name)) { v = u; break; }
+			} 
+			if (v == null) { 
+				login_error.setText("error: username does not exist");
+				return; 
+			}
+			loginpath = "/photos/view/Photos.fxml";
+			title = "Photos";
+		}
 		Parent p = null;
+	    PhotosController.currUser = v;
         try {
-			p = FXMLLoader.load(getClass().getResource("/photos/view/Login.fxml"));
+			p = FXMLLoader.load(getClass().getResource(loginpath));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
         Scene sc = new Scene(p);
         Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         mainStage.setScene(sc);
-        mainStage.setTitle("Photos Login");
+        mainStage.setTitle(title);
         mainStage.show();
 	}
 	
 	@FXML void quit(ActionEvent event) {
-		 Stage stage = (Stage) quit.getScene().getWindow();
+		 Stage stage = (Stage) quit_button.getScene().getWindow();
 		 stage.close();
 	}
 	

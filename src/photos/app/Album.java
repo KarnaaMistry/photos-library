@@ -1,10 +1,15 @@
 package photos.app;
 
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Album {
+public class Album implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2083102379747324346L;
 	private String name;
 	private List<Photo> photos;
 	

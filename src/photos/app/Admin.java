@@ -5,12 +5,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Admin implements Serializable {
+public class Admin {
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6389355645645133638L;
 	private List<User> userlist;
 	
 	public Admin() {
@@ -27,6 +26,7 @@ public class Admin implements Serializable {
 	
 	public boolean addUser(String username) {
 		
+		if (username.length() < 1) { return false; } 
 		if (username.equals("admin")) { return false; }
 		for (User u : this.userlist) {
 			if (u.getUsername().equals(username)) {
