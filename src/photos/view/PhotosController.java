@@ -1,7 +1,8 @@
 package photos.view;
 
 import photos.app.*;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.Optional;
 
 import com.sun.javafx.logging.Logger;
@@ -18,6 +19,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -31,11 +34,35 @@ public class PhotosController {
 	@FXML Button logout;
 	@FXML Button quit;
 	@FXML Text username_display;
-	@FXML Button test_printer;
-
+	@FXML ImageView bigboi;
 	
-	public void initialize() {
-		username_display.setText(currUser.getUsername());
+	public void initialize() throws FileNotFoundException {
+		
+		InputStream stream = new FileInputStream("data/stockphotos/en_croissant.png");
+		Image image = new Image(stream);
+		if (image != null) {
+            double w = 0;
+            double h = 0;
+
+            double ratioX = bigboi.getFitWidth() / image.getWidth();
+            double ratioY = bigboi.getFitHeight() / image.getHeight();
+
+            double reducCoeff = 0;
+            if(ratioX >= ratioY) {
+                reducCoeff = ratioY;
+            } else {
+                reducCoeff = ratioX;
+            }
+
+            w = image.getWidth() * reducCoeff;
+            h = image.getHeight() * reducCoeff;
+
+            bigboi.setX((bigboi.getFitWidth() - w) / 2);
+            bigboi.setY((bigboi.getFitHeight() - h) / 2);
+
+        }
+		bigboi.setImage(image);
+		
 	}
 	
 	@FXML void logout(ActionEvent event) {
