@@ -33,9 +33,14 @@ public class LoginController {
 	
 	public void initialize() {
 		login_error.setText("");
+		//loading.setText("");
+		Photos.saveAdmin();
 	}
 	
+	
 	@FXML void login(ActionEvent event) throws IOException {
+
+		login_username.setText(login_username.getText().trim());
 		String name = login_username.getText();
 		String loginpath;
 		String title;

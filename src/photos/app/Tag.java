@@ -19,16 +19,18 @@ public class Tag implements Serializable {
 		this.tagname = tname;
 		this.tagvalue = tval;
 		
-		User current = PhotosController.currUser;
-		if (!current.getTagTypes().contains(tname)) {
-			current.getTagTypes().add(tname);
-		}
+		//User current = PhotosController.currUser;
+		//if (!current.getTagTypes().contains(tname)) {
+		//	current.getTagTypes().add(tname);
+		//}
 	}
 	
+	/*
 	public Tag(String tname, String tval, int flag) {
 		this.tagname = tname;
 		this.tagvalue = tval;
 	}
+	*/
 	
 	public String getTagname() {
 		return this.tagname;
@@ -38,9 +40,16 @@ public class Tag implements Serializable {
 		return this.tagvalue;
 	}
 	
-	public boolean equals(Tag t2) {
+	public String toString() {
+		return this.tagname + ":  " + this.tagvalue;
+	}
+	
+	public boolean equals(Object o) {
+		if (!(o instanceof Tag)) {
+			return false;
+		}
 		Tag t1 = this;
-		return t1.getTagname().equals(t2.getTagname()) && t1.getTagvalue().equals(t2.getTagvalue());
+		return t1.getTagname().equals(((Tag)o).getTagname()) && t1.getTagvalue().equals(((Tag)o).getTagvalue());
 		
 	}
 	

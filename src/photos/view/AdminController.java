@@ -40,7 +40,6 @@ public class AdminController {
 	public void initialize() {
 		
 		refreshUserList();
-
 	}
 	
 	@FXML void logout(ActionEvent event) {
@@ -58,8 +57,9 @@ public class AdminController {
 	}
 	
 	@FXML void quit(ActionEvent event) {
-		 Stage stage = (Stage) quit_button.getScene().getWindow();
-		 stage.close();
+		//Photos.saveAdmin();
+		Stage stage = (Stage) quit_button.getScene().getWindow();
+		stage.close();
 	}
 	
 	@FXML void handleDelete(ActionEvent event) {

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.io.*;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -76,7 +78,7 @@ public class Photos extends Application {
 		if (list != null) {
 			for (File file : list) {
 				if (!usernames.contains(file.getName().substring(0, file.getName().length()-4))) {
-					file.deleteOnExit();
+					file.delete();
 				}
 			}
 		}
@@ -95,13 +97,13 @@ public class Photos extends Application {
 		admin = loadAdmin();
 		//test code
 		
-		
-		//System.out.println(admin);
-		
-		
-		
-		
-		
+		//for (User e : admin.getUserlist()) {
+		//	if (e.getUsername().equals("karndog")) {
+		//		e.addAlbum("Fire Mixtape");
+		//		e.getAlbums().get(0).addPhoto(new Photo("data/stockphotos/cat_hat.png"));
+		//	}
+		//}
+
 		/*
 		if (myPhoto.addTag("location", "New Brunswick")) { System.out.println("1 Success"); }
 		if (!myPhoto.addTag("location", "New York")) { System.out.println("2 Failure"); }
