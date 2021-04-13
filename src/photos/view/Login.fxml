@@ -6,11 +6,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photos.view.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photos.view.LoginController">
    <children>
-      <Text layoutX="606.0" layoutY="64.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Photos" textAlignment="CENTER">
+      <Text fill="#1c68a6" layoutX="549.0" layoutY="206.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Photos" textAlignment="CENTER">
          <font>
-            <Font name="System Bold" size="33.0" />
+            <Font name="System Bold" size="68.0" />
          </font>
       </Text>
       <Button fx:id="login_button" layoutX="630.0" layoutY="444.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="60.0" text="Login" />
@@ -30,5 +30,10 @@
             <Font size="14.0" />
          </font>
       </Button>
+      <Text fill="#1c68a6" layoutX="851.0" layoutY="801.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Fin Herbig and Karnaa Mistry  |  Group 10  |  CS213 Spring 2021" textAlignment="RIGHT" wrappingWidth="454.724609375">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

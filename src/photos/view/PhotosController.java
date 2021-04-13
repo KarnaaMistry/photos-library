@@ -12,32 +12,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sun.javafx.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.CacheHint;
-import javafx.scene.Group;
+
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -96,12 +92,17 @@ public class PhotosController {
 	@FXML DatePicker search_date1;
 	@FXML DatePicker search_date2;
 	@FXML TextField searchbytag;
+	@FXML TextField searchbytag2;
 	@FXML Button searchDate_but;
 	@FXML Button searchTag_but;
 	@FXML Text error_search;
 	@FXML ToggleGroup search_radio;
 	@FXML RadioButton search_or;
 	@FXML RadioButton search_and;
+	@FXML RadioButton search_single;
+	@FXML ComboBox<String> tagTypesBox1;
+	@FXML ComboBox<String> tagTypesBox2;
+	@FXML Text error_photo;
 
 	void selectAlbum() {
 		if (albumListView.getSelectionModel().getSelectedIndex() < 0) { photoListView.getItems().clear(); currAlbum = null; return; }
@@ -112,12 +113,10 @@ public class PhotosController {
 				break;
 			}
 		}
-		searchResultMode = false; System.out.println("made search result mode false");
-		applyCap.setText("");
-		date_taken.setText("");
+		searchResultMode = false;
+		clearAllErrors();
 		
-		
-		//photoListViewCell();
+
 		refreshPhotoListView();
 		refreshTagListView(photoListView.getSelectionModel().getSelectedItem());
 		
@@ -127,15 +126,14 @@ public class PhotosController {
 	
 	void selectPhoto() {
 		if (searchResultMode) {
-			System.out.println("doing it");
 			if (photoListView.getSelectionModel().getSelectedIndex() < 0) {
-				date_taken.setText("");
-				applyCap.setText("");
+				clearAllErrors();
+				applyCap.setDisable(true);
 				photo_display.setImage(null);
 				return;
 			}
+			applyCap.setDisable(false);
 			Photo p = photoListView.getSelectionModel().getSelectedItem();
-			//System.out.println("*******************************************++" + p.getFilepath());
 			Image pic = userImages.get(p.getFilepath().toString());
 
 			double width = pic.getWidth();
@@ -163,13 +161,13 @@ public class PhotosController {
 		}
 		
 		if (currAlbum == null || photoListView.getSelectionModel().getSelectedIndex() < 0 || albumListView.getSelectionModel().getSelectedIndex() < 0) {
-			date_taken.setText("");
-			applyCap.setText("");
+			clearAllErrors();
+			applyCap.setDisable(true);
 			photo_display.setImage(null);
 			return;
 		}
+		applyCap.setDisable(false);
 		Photo p = photoListView.getSelectionModel().getSelectedItem();
-		//System.out.println("*******************************************++" + p.getFilepath());
 		Image pic = userImages.get(p.getFilepath().toString());
 
 		double width = pic.getWidth();
@@ -198,13 +196,7 @@ public class PhotosController {
 	}
 	
 	void selectTag() {
-		//if (currAlbum == null || photoListView.getSelectionModel().getSelectedIndex() < 0 || albumListView.getSelectionModel().getSelectedIndex() < 0
-		//		|| tagListView.getSelectionModel().getSelectedIndex() < 0) {
-		//	return;
-		//}
-		//Tag t = tagListView.getSelectionModel().getSelectedItem();
-		
-		
+		tagType_error.setText("");
 	}
 	
 	void loadImages() {
@@ -224,27 +216,23 @@ public class PhotosController {
 	}
 	
 	void loadTagTypes() {
-		tagType_error.setText("");
+		clearAllErrors();
 		userTagTypes = FXCollections.observableList(currUser.getTagTypes());
-		for (String str : userTagTypes) {
-			System.out.println("-----------------------t " + str);
-		}
 		FXCollections.sort(userTagTypes);
 		tagTypesBox.setItems(userTagTypes);
+		tagTypesBox1.setItems(userTagTypes);
+		tagTypesBox2.setItems(userTagTypes);
 	}
 	
 	public void initialize() throws FileNotFoundException {
 		
-		System.out.println("-I made search result mode false");
 		searchResultMode = false;
 		loadImages();
 		loadTagTypes();
+		applyCap.setDisable(true);
 		
-		
-		
-		for (Album xx : currUser.getAlbums()) {
-			System.out.println("-x: " + xx.getName());
-		}
+		refreshSearchRadio();
+
 		albumListViewCell();
 		photoListViewCell();
 		
@@ -271,41 +259,13 @@ public class PhotosController {
 				(tagListView, oldVal2, newVal2) -> 
 				selectTag());
 		
-		
+
 		
 		username_display.setText(currUser.getUsername());
 		refreshAlbumListView();
 		
 		
-		
-		
-		
-		/*
-		InputStream stream = new FileInputStream("data/stockphotos/campus.png");
-		Image image = new Image(stream);
-		if (image != null) {
-            double w = 0;
-            double h = 0;
 
-            double ratioX = bigboi.getFitWidth() / image.getWidth();
-            double ratioY = bigboi.getFitHeight() / image.getHeight();
-
-            double reducCoeff = 0;
-            if(ratioX >= ratioY) {
-                reducCoeff = ratioY;
-            } else {
-                reducCoeff = ratioX;
-            }
-
-            w = image.getWidth() * reducCoeff;
-            h = image.getHeight() * reducCoeff;
-
-            bigboi.setX((bigboi.getFitWidth() - w) / 2);
-            bigboi.setY((bigboi.getFitHeight() - h) / 2);
-
-        }
-		bigboi.setImage(image);
-		*/ 
 	}
 	
 	@FXML void handleSearchByDate(ActionEvent event) {
@@ -323,7 +283,6 @@ public class PhotosController {
 		cal2.set(d2.getYear(), d2.getMonthValue()-1, d2.getDayOfMonth());
 		
 		searchResultMode = true;
-		System.out.println("made search result mode true");
 		
 		List<Photo> allPhotos = new ArrayList<Photo>();
 		
@@ -349,7 +308,7 @@ public class PhotosController {
 			}
 		}
 		
-		error_search.setText("");
+		clearAllErrors();
 		
 		tagListView.getSelectionModel().clearSelection();
 		refreshTagListView(null);
@@ -366,38 +325,31 @@ public class PhotosController {
 		photoListView.getSelectionModel().select(-1);
 		
 	}
-	
-	@FXML void DOATHING(ActionEvent event) {
-		System.out.println("SearchResMode == " + searchResultMode);
-	}
-	
+
 	@FXML void handleSearchByTag(ActionEvent event) {
 		
 		searchbytag.setText(searchbytag.getText().trim());
+		searchbytag2.setText(searchbytag2.getText().trim());
 		String str = searchbytag.getText();
-		int numTags = 0;
-		int joint = 3;
-		if (str.toLowerCase().matches("(.*)=(.*)=(.*)")) {
-			error_search.setText("error: invalid tag expression");
+		
+		if (tagTypesBox1.getSelectionModel().getSelectedIndex() < 0) {
+			error_search.setText("error: need a type and value");
 			return;
 		}
-		if (str.toLowerCase().matches("(.*)=(.*) and (.*)=(.*)")) {
-			numTags = 2;
-			joint = 1;
-		} else if (str.toLowerCase().matches("(.*)=(.*) or (.*)=(.*)")) {
-			numTags = 2;
-			joint = 0;
-		} else if (str.matches("(.*)=(.*)")) {
-			numTags = 1;
-		} else {
-			error_search.setText("error: invalid tag expression");
-			return;
-		}
-		searchResultMode = true;
-		if (numTags == 1) {
+		
+		RadioButton selected = (RadioButton) search_radio.getSelectedToggle();
+		String radiotype = selected.getText();
+		
+		if (radiotype.equals("Single Tag")) {
 			
-			String name = str.substring(0,str.indexOf('='));
-			String value = str.substring(str.indexOf('=')+1,str.length());
+
+			
+			String name = tagTypesBox1.getSelectionModel().getSelectedItem();
+			String value = str;
+			if (str.length() < 1) {
+				error_search.setText("error: missing tag value");
+				return;
+			}
 			Tag tester = new Tag(name, value);
 			
 			List<Photo> allPhotos = new ArrayList<Photo>();
@@ -415,7 +367,7 @@ public class PhotosController {
 			for (Photo p : allPhotos) {
 				for (Tag t : p.getTags()) {
 					if (t.equals(tester)) {
-						results.add(p);
+						if (!results.contains(p)) { results.add(p); }
 					}
 				}
 			}
@@ -425,7 +377,7 @@ public class PhotosController {
 			photoListView.getSelectionModel().clearSelection();
 			albumListView.getSelectionModel().clearSelection();
 			
-			error_search.setText("");
+			clearAllErrors();
 			
 			photoListView.getItems().clear();
 			for (Photo r : results) {
@@ -433,38 +385,44 @@ public class PhotosController {
 			}
 			
 			photoListView.getSelectionModel().select(-1);
-		
+			searchResultMode = true;
+			
+			return;
+			
 		}
 		
-		if (numTags == 2) {
+		if (radiotype.equals("AND") || radiotype.equals("OR")) {
 			
-			String name1 = str.substring(0,str.indexOf('='));
-			String value1 = str.substring(str.indexOf('=')+1,str.indexOf(" "));
-			String name2 = str.substring(str.indexOf(" ",str.indexOf(" ")+1)+1,str.indexOf('=',str.indexOf('=')+1));
-			String value2 = str.substring(str.indexOf('=',str.indexOf('=')+1)+1,str.length());
-			Tag tester1 = new Tag(name1, value1);
-			Tag tester2 = new Tag(name2, value2);
-			
-			List<Photo> allPhotos = new ArrayList<Photo>();
-			
-			for (Album a : currUser.getAlbums()) {
-				for (Photo p : a.getPhotos()) {
-					if (!allPhotos.contains(p)) {
-						allPhotos.add(p);
-					}
-				}
+			if (tagTypesBox1.getSelectionModel().getSelectedIndex() < 0 || tagTypesBox2.getSelectionModel().getSelectedIndex() < 0
+					|| searchbytag2.getText().length() < 1 || searchbytag.getText().length() < 1) {
+				error_search.setText("error: need pair of type-value tags");
+				return;
 			}
 			
 			List<Photo> results = new ArrayList<Photo>();
 			
-			if (joint == 0) {
+			
+			if (radiotype.equals("OR")) {
 				
-				System.out.println("1: " + tester1);
-				System.out.println("2: " + tester2);
+				String name1 = tagTypesBox1.getSelectionModel().getSelectedItem();
+				String value1 = searchbytag.getText();
+				String name2 = tagTypesBox2.getSelectionModel().getSelectedItem();
+				String value2 = searchbytag2.getText();
+				Tag tester1 = new Tag(name1, value1);
+				Tag tester2 = new Tag(name2, value2);
+				
+				List<Photo> allPhotos = new ArrayList<Photo>();
+				
+				for (Album a : currUser.getAlbums()) {
+					for (Photo p : a.getPhotos()) {
+						if (!allPhotos.contains(p)) {
+							allPhotos.add(p);
+						}
+					}
+				}
 				
 				for (Photo p : allPhotos) {
 					for (Tag t : p.getTags()) {
-						System.out.println("-u " + t.toString());
 						if (t.equals(tester1) || t.equals(tester2)) {
 							if (!results.contains(p)) { results.add(p); }
 						}
@@ -473,25 +431,43 @@ public class PhotosController {
 				
 			}
 			
-			if (joint == 1) {
+			if (radiotype.equals("AND")) {
+				
+				String name1 = tagTypesBox1.getSelectionModel().getSelectedItem();
+				String value1 = searchbytag.getText();
+				String name2 = tagTypesBox2.getSelectionModel().getSelectedItem();
+				String value2 = searchbytag2.getText();
+				Tag tester1 = new Tag(name1, value1);
+				Tag tester2 = new Tag(name2, value2);
+				
+				List<Photo> allPhotos = new ArrayList<Photo>();
+				
+				for (Album a : currUser.getAlbums()) {
+					for (Photo p : a.getPhotos()) {
+						if (!allPhotos.contains(p)) {
+							allPhotos.add(p);
+						}
+					}
+				}
 				
 				for (Photo p : allPhotos) {
 					for (int i = 0; i < p.getTags().size(); i++) {
 						for (int j = 0; j < p.getTags().size(); j++) {
 							if (p.getTags().get(i).equals(tester1) && (p.getTags().get(j).equals(tester2))) {
-								results.add(p);
+								if (!results.contains(p)) { results.add(p); }
 							}
 						}
 					}
 				}
+				
 			}
-			
+
 			tagListView.getSelectionModel().clearSelection();
 			refreshTagListView(null);
 			photoListView.getSelectionModel().clearSelection();
 			albumListView.getSelectionModel().clearSelection();
 			
-			error_search.setText("");
+			clearAllErrors();
 			
 			photoListView.getItems().clear();
 			for (Photo r : results) {
@@ -499,22 +475,52 @@ public class PhotosController {
 			}
 			
 			photoListView.getSelectionModel().select(-1);
-			
-
+			searchResultMode = true;
 		}
 
-		
 	}
 	
 	@FXML void handleCreateAlbumSearchRes(ActionEvent event) {
 		
+		if (!searchResultMode) {
+			error_search.setText("error: no active search results");
+			return; 
+		}
 		
+		if (photoListView.getItems().isEmpty()) {
+			error_search.setText("error: no photos in search results");
+			return; 
+		}
+		createAlbum_searchres_name.setText(createAlbum_searchres_name.getText().trim());
+		String name = createAlbum_searchres_name.getText();
 		
+		if (name.length() < 1) { 
+			error_search.setText("error: album needs a name");
+			return; 
+		}
 		
+		for (Album a : currUser.getAlbums()) {
+			if (a.getName().equals(name)) {
+				error_search.setText("error: album name already exists");
+				return; 
+			}
+		}
 		
-		
-		
+		currUser.addAlbum(name);
+		Album b = null;
+		for (Album a : currUser.getAlbums()) {
+			if (a.getName().equals(name)) {
+				b = a;
+				break;
+			}
+		}
+		for (Photo p : photoListView.getItems()) {
+			b.addPhoto(p);
+		}
 		searchResultMode = false;
+		refreshAlbumListView(name);
+		createAlbum_searchres_name.setText("");
+
 	}
 	
 	@FXML void handleNewTagType(ActionEvent event) {
@@ -581,8 +587,7 @@ public class PhotosController {
 		}
 		Tag rm = tagListView.getSelectionModel().getSelectedItem();
 		Photo ph = photoListView.getSelectionModel().getSelectedItem();
-		if (!ph.getTags().contains(rm)) {
-			System.out.println("??????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????");
+		if (!confirm("DeletionTag")) {
 			return;
 		}
 		ph.getTags().remove(rm);
@@ -615,6 +620,10 @@ public class PhotosController {
 
 			return;
 		}
+		if (albumListView.getSelectionModel().getSelectedIndex() < 0 || albumListView.getItems().isEmpty()) {
+			error_copymove.setText("error copying: no photo selected");
+			return;
+		}
 		String alb = toAlbum.getText();
 		String curr = currAlbum.getName();
 		if (photoListView.getSelectionModel().getSelectedIndex() < 0) { 
@@ -622,7 +631,6 @@ public class PhotosController {
 			return; 
 		}
 		if (alb.equals(currAlbum.getName())) {
-			//error_copymove.setText("error copying: photo already in album");
 			return;
 		}
 		Photo p = photoListView.getSelectionModel().getSelectedItem();
@@ -639,13 +647,17 @@ public class PhotosController {
 		dest.addPhoto(p);
 		refreshAlbumListView(curr);
 		refreshPhotoListView(p);
-		error_copymove.setText("");
+		clearAllErrors();
 		
 	}
 	
 	@FXML void handleMove(ActionEvent event) {
 		if (searchResultMode) {
-			error_copymove.setText("");
+			error_copymove.setText("error moving: select an initial album");
+			return;
+		}
+		if (albumListView.getSelectionModel().getSelectedIndex() < 0 || albumListView.getItems().isEmpty()) {
+			error_copymove.setText("error copying: no photo selected");
 			return;
 		}
 		toAlbum.setText(toAlbum.getText().trim());
@@ -663,7 +675,7 @@ public class PhotosController {
 			}
 		}
 		if (dest == null || alb.length() < 1) {
-			error_copymove.setText("error moving: that album does not exist");
+			clearAllErrors();
 			return;
 		}
 		dest.addPhoto(p);
@@ -687,7 +699,10 @@ public class PhotosController {
 	
 	@FXML void handleNextPhoto(ActionEvent event) {
 		int index = photoListView.getSelectionModel().getSelectedIndex();
-		if (index < 0) { return; }
+		if (index < 0) { 
+			if (photoListView.getItems().isEmpty()) { return; }
+			else { photoListView.getSelectionModel().select(0); }
+		}
 		if (index == photoListView.getItems().size()-1) {
 			photoListView.getSelectionModel().select(0);
 		} else {
@@ -697,7 +712,10 @@ public class PhotosController {
 	
 	@FXML void handlePrevPhoto(ActionEvent event) {
 		int index = photoListView.getSelectionModel().getSelectedIndex();
-		if (index < 0) { return; }
+		if (index < 0) { 
+			if (photoListView.getItems().isEmpty()) { return; }
+			else { photoListView.getSelectionModel().select(0); }
+		}
 		if (index == 0) {
 			photoListView.getSelectionModel().select(photoListView.getItems().size()-1);
 		} else {
@@ -726,14 +744,19 @@ public class PhotosController {
 			error_album.setText("error deleting: must have an album selected");
 			return;
 		}
-		albumField.setText("");
+		
 		if (albumListView.getSelectionModel().getSelectedIndex() < 0) {
 			error_album.setText("error deleting: must have an album selected");
 			return;
 		}
+		if (!confirm("DeletionAlbum")) {
+			return;
+		}
+		albumField.setText("");
 		String delalb = albumListView.getSelectionModel().getSelectedItem().substring(0,albumListView.getSelectionModel().getSelectedItem().indexOf('\n'));
 		currUser.delAlbum(delalb);
 		refreshAlbumListView();
+		refreshTagListView(null);
 	}
 	
 	@FXML void handleRenameAlbum(ActionEvent event) {
@@ -764,16 +787,16 @@ public class PhotosController {
 	
 	@FXML void handleAddPhoto(ActionEvent event) {
 		if (searchResultMode) {
-			
+			error_photo.setText("error adding: must have an album selected");
 			return;
 		}
 		if (albumListView.getSelectionModel().getSelectedIndex() < 0) { 
-			
+			error_photo.setText("error adding: must have an album selected");
 			return;
 		}
 
 		FileChooser choose = new FileChooser();
-		choose.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.bmp;*.dib;*.png;*.gif;*.jpe;*.jpeg;*.jpe;*.rle"));
+		choose.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.bmp;*.dib;*.png;*.gif;*.jpe;*.jpeg;*jpg;*.jpe;*.rle"));
 		File newphoto = choose.showOpenDialog((Stage) addpho_but.getScene().getWindow());
 		if (newphoto == null) {
 			return;
@@ -790,13 +813,8 @@ public class PhotosController {
 			p = new Photo(newphoto.getPath().toString());
 		}
 		
-		System.out.println("currAlb before add: " + currAlbum.getNumPhotos());
+
 		currAlbum.addPhoto(p);
-		System.out.println("currAlb after add: " + currAlbum.getNumPhotos());
-		
-		for (Photo p2 : currAlbum.getPhotos()) {
-			System.out.println("-a " + p2.getFilepath());
-		}
 
 		refreshAlbumListView(currAlbum.getName());
 
@@ -805,18 +823,23 @@ public class PhotosController {
 	
 	@FXML void handleRemovePhoto(ActionEvent event) {
 		if (searchResultMode) {
-			
+			error_photo.setText("error removing: must have an album selected");
 			return;
 		}
 		if (albumListView.getSelectionModel().getSelectedIndex() < 0) { 
-			
+			error_photo.setText("error removing: must have an album selected");
 			return;
 		}
 		
 		if (photoListView.getSelectionModel().getSelectedIndex() < 0) {
-			
+			error_photo.setText("error removing: must have a photo selected");
 			return;
 		}
+		
+		if (!confirm("Removal")) {
+			return;
+		}
+
 		Photo del = photoListView.getSelectionModel().getSelectedItem();
 		currAlbum.removePhoto(del);
 		
@@ -852,9 +875,28 @@ public class PhotosController {
 		toAlbum.setText("");
 	}
 	
+	/**
+	 * Starts this state of the application, Left as placeholder, initialization handled in <code>initialize()</code>.
+	 * @param mainStage		primary JavaFX stage
+	 */
 	public void start(Stage mainStage) { 
 
 		
+	}
+	
+	@FXML void refreshSearchRadio() {
+		RadioButton selected = (RadioButton) search_radio.getSelectedToggle();
+		String str = selected.getText();
+		
+		if (str.equals("OR") || str.equals("AND")) {
+			tagTypesBox2.setDisable(false);
+			searchbytag2.setDisable(false);
+			return;
+		}
+		if (str.equals("Single Tag")) {
+			tagTypesBox2.setDisable(true);
+			searchbytag2.setDisable(true);
+		}
 	}
 	
 	void refreshAlbumListView() {
@@ -863,28 +905,23 @@ public class PhotosController {
 			albumListView.getItems().add(alb.toString());
 		}
 		FXCollections.sort(albumListView.getItems());
-		error_album.setText("");
-		//albumListViewCell();
+		clearAllErrors();
 	}
 	
 	void refreshAlbumListView(String desiredAlb) {
 		albumListView.getItems().clear();
 		for (Album alb : currUser.getAlbums()) {
 			albumListView.getItems().add(alb.toString());
-			System.out.println("-re-added album " + alb.getName());
 		}
 		FXCollections.sort(albumListView.getItems());
 		for (String str : albumListView.getItems()) {
 			if (str.substring(0,str.indexOf('\n')).equals(desiredAlb)) {
-				System.out.println("flag");
 				albumListView.getSelectionModel().select(str);
 				
 				break;
 			}
 		}
-		//albumListViewCell();
-		error_album.setText("");
-		//System.out.println("alb refresh for " + desiredAlb + " successful, now pointing to " + albumListView.getSelectionModel().getSelectedItem() + "! ");
+		clearAllErrors();
 	}
 	
 	void refreshPhotoListView() {
@@ -905,10 +942,8 @@ public class PhotosController {
 		if (currAlbum.getPhotos().isEmpty()) {
 			return;
 		}
-		System.out.println("A: " + currAlbum.getName());
-		//photoListView.setItems(FXCollections.observableList(currAlbum.getPhotos()));
+
 		for (Photo p : currAlbum.getPhotos()) {
-			System.out.print("- ");
 			photoListView.getItems().add(p);
 		}
 		refreshTagListView(null);
@@ -933,13 +968,10 @@ public class PhotosController {
 		if (currAlbum.getPhotos().isEmpty()) {
 			return;
 		}
-		System.out.println('v');
+
 		for (Photo p : currAlbum.getPhotos()) {
-			System.out.print("- ");
 			photoListView.getItems().add(p);
 		}
-		//System.out.println("A: -p " + currAlbum.getName());
-		//photoListView.setItems(FXCollections.observableList(currAlbum.getPhotos()));
 		photoListView.getSelectionModel().select(ph);
 		refreshTagListView(ph);
 	}
@@ -954,7 +986,7 @@ public class PhotosController {
 		for (Tag t : ph.getTags()) {
 			tagListView.getItems().add(t);
 		}
-		//System.out.println("refreshed tagview ph");
+
 	}
 	
 	void refreshTagListView(Photo ph, Tag ta) {
@@ -967,8 +999,7 @@ public class PhotosController {
 		}
 		
 		tagListView.getSelectionModel().select(ta);
-		
-		//System.out.println("refreshed tagview ph ta");
+
 	}
 	
 	void albumListViewCell() {
@@ -978,14 +1009,9 @@ public class PhotosController {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
-                    //setGraphic(null);
                 } else {
-                	//setMinWidth(0);
-                   // setPrefWidth(1);
                     setPrefHeight(40);
-                    //setStyle("-fx-border-color: LightGrey; -fx-border-weight: 2px;");
                     setFont(Font.font(11));
-                  //  setWrapText(false);
                     setText(item);
                 }
             }
@@ -995,7 +1021,6 @@ public class PhotosController {
 	void photoListViewCell() {
 		photoListView.setCellFactory(param -> new ListCell<Photo>(){
 
-			
             @Override
             protected void updateItem(Photo item, boolean empty) {
                 super.updateItem(item, empty);
@@ -1004,30 +1029,21 @@ public class PhotosController {
                     setGraphic(null);
                 } else {
                 	setMinWidth(0);
-                   setPrefWidth(1);
-                   setPrefHeight(50);
-                   setMaxHeight(50);
-                    //setStyle("-fx-border-color: LightGrey; -fx-border-weight: 2px;");
-                    setFont(Font.font(11));
-                   setWrapText(true);
-
-                	
-                  // System.out.println("III: " + item.getFilepath());
-                		//Image im = new Image(input, 50, 60, true, false);
-                  // System.out.println("doing something");
+                	setPrefWidth(1);
+                	setPrefHeight(50);
+                	setMaxHeight(50);
                    
-                   Image img = userImages.get(item.getFilepath());
-            			ImageView thumb = new ImageView(img);
-            			thumb.setFitHeight(45);
-            			thumb.setFitWidth(60);
-            			thumb.setPreserveRatio(true);
-            			//thumb.setCache(true);
-            			//thumb.setCacheHint(CacheHint.SPEED);
-            			//thumb.setSmooth(true);
+                    setFont(Font.font(11));
+                    setWrapText(true);
 
-                        setText(item.getCaption());
+                    Image img = userImages.get(item.getFilepath());
+            		ImageView thumb = new ImageView(img);
+            		thumb.setFitHeight(45);
+            		thumb.setFitWidth(60);
+            		thumb.setPreserveRatio(true);
+                    setText(item.getCaption());
 
-                    	setGraphic(thumb);
+                    setGraphic(thumb);
                 }
             }
         });
@@ -1041,18 +1057,49 @@ public class PhotosController {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
-                    //setGraphic(null);
                 } else {
-                	//setMinWidth(0);
-                   // setPrefWidth(1);
                     setPrefHeight(25);
-                    //setStyle("-fx-border-color: LightGrey; -fx-border-weight: 2px;");
                     setFont(Font.font(10));
                     setWrapText(true);
-                    setText("* " + item.toString());
+                    setText(item.toString());
                 }
             }
         });
+	}
+	
+	void clearAllErrors() {
+		error_album.setText("");
+		error_copymove.setText("");
+		tag_error.setText("");
+		tagType_error.setText("");
+		error_search.setText("");
+		error_photo.setText("");
+	}
+	
+	boolean confirm(String type) {
+
+		boolean flag = false;
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirm");
+		if (type.equals("Removal")) {
+			alert.setHeaderText("Are you sure you want to remove this photo from \"" 
+					+ albumListView.getSelectionModel().getSelectedItem().substring(0,albumListView.getSelectionModel().getSelectedItem().indexOf('\n'))+ "\"?");
+		}
+		if (type.equals("DeletionTag")) {
+			alert.setHeaderText("Are you sure you want to delete the tag \"" + tagListView.getSelectionModel().getSelectedItem().toString() + "\"?");
+		}
+		if (type.equals("DeletionAlbum")) {
+			alert.setHeaderText("Are you sure you want to delete \"" + albumListView.getSelectionModel().getSelectedItem().
+					substring(0,albumListView.getSelectionModel().getSelectedItem().indexOf('\n'))+ "\"?");
+		}
+		
+		//alert.setContentText("");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.isPresent() && result.get() == ButtonType.OK) {
+		    flag = true;
+		}
+		return flag;
+		
 	}
 	
 

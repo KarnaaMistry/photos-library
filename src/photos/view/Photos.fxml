@@ -5,7 +5,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -16,11 +15,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photos.view.PhotosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photos.view.PhotosController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="162.0" layoutX="28.0" layoutY="31.0" stroke="#00000029" strokeType="INSIDE" width="494.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="504.0" layoutX="1068.0" layoutY="259.0" stroke="#00000029" strokeType="INSIDE" width="210.0" />
-      <Text fx:id="username_display" layoutX="956.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usrnm" wrappingWidth="182.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebf1f5" height="162.0" layoutX="28.0" layoutY="31.0" stroke="#00000029" strokeType="INSIDE" width="494.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebf1f5" height="504.0" layoutX="1068.0" layoutY="259.0" stroke="#00000029" strokeType="INSIDE" width="210.0" />
+      <Text fx:id="username_display" fill="#1c68a6" layoutX="931.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usrnm" textAlignment="RIGHT" wrappingWidth="364.19580078125">
          <font>
             <Font name="System Italic" size="15.0" />
          </font></Text>
@@ -34,18 +33,12 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Text layoutX="606.0" layoutY="64.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Photos" textAlignment="CENTER">
+      <Text fill="#1c68a6" layoutX="708.0" layoutY="124.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Photos" textAlignment="CENTER">
          <font>
-            <Font name="System Bold" size="33.0" />
+            <Font name="System Bold" size="62.0" />
          </font>
       </Text>
-      <Text layoutX="800.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently logged in as:  " textAlignment="CENTER">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
-      <Slider layoutX="586.0" layoutY="72.0" prefHeight="14.0" prefWidth="188.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="401.0" layoutX="28.0" layoutY="204.0" stroke="#00000029" strokeType="INSIDE" width="494.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebf1f5" height="401.0" layoutX="28.0" layoutY="204.0" stroke="#00000029" strokeType="INSIDE" width="494.0" />
       <ListView fx:id="albumListView" layoutX="39.0" layoutY="244.0" prefHeight="350.0" prefWidth="231.0" style="-fx-fixed-cell-size: 40;" />
       <Text layoutX="45.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Albums">
          <font>
@@ -79,11 +72,11 @@
       </Button>
       <Button fx:id="rempho_but" layoutX="336.0" layoutY="620.0" mnemonicParsing="false" onAction="#handleRemovePhoto" prefHeight="25.0" prefWidth="120.0" text="Remove Photo" />
       <Button fx:id="addpho_but" layoutX="336.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleAddPhoto" prefHeight="25.0" prefWidth="120.0" text="Add Photo" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="401.0" layoutX="598.0" layoutY="204.0" stroke="#00000029" strokeType="INSIDE" width="422.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebf1f5" height="401.0" layoutX="598.0" layoutY="204.0" stroke="#00000029" strokeType="INSIDE" width="422.0" />
       <ImageView fx:id="photo_display" fitHeight="300.0" fitWidth="400.0" layoutX="609.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="nextpho_but" layoutX="535.0" layoutY="437.0" mnemonicParsing="false" onAction="#handleNextPhoto" prefHeight="25.0" prefWidth="51.0" text="Next" textAlignment="CENTER" wrapText="true" />
       <Button fx:id="prevpho_but" layoutX="535.0" layoutY="377.0" mnemonicParsing="false" onAction="#handlePrevPhoto" prefHeight="25.0" prefWidth="51.0" text="Prev" textAlignment="CENTER" wrapText="true" />
-      <Polygon fill="#f2f2f2" layoutX="563.0" layoutY="355.0" points="-28.0, 9.0, 23.0, 9.0, -3.0, -35.0" stroke="#00000029" strokeType="INSIDE" />
+      <Polygon fill="#ebf1f5" layoutX="563.0" layoutY="355.0" points="-28.0, 9.0, 23.0, 9.0, -3.0, -35.0" stroke="#00000029" strokeType="INSIDE" />
       <TextArea fx:id="applyCap" layoutX="609.0" layoutY="541.0" prefHeight="53.0" prefWidth="400.0" text="&#10;" wrapText="true" />
       <Text layoutX="612.0" layoutY="533.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Caption:" />
       <Button fx:id="applyCap_but" layoutX="849.0" layoutY="620.0" mnemonicParsing="false" onAction="#handleApplyCaption" prefHeight="25.0" prefWidth="120.0" text="Update Caption" />
@@ -116,7 +109,7 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="44.0" layoutX="1068.0" layoutY="203.0" stroke="#00000029" strokeType="INSIDE" width="210.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebf1f5" height="44.0" layoutX="1068.0" layoutY="203.0" stroke="#00000029" strokeType="INSIDE" width="210.0" />
       <Text layoutX="1079.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date-Time:" />
       <Text fx:id="date_taken" layoutX="1147.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="120.0" />
       <ComboBox fx:id="tagTypesBox" layoutX="1147.0" layoutY="598.0" prefHeight="25.0" prefWidth="120.0" promptText="Select Type" visibleRowCount="7" />
@@ -127,7 +120,7 @@
             <Font size="11.0" />
          </font>
       </TextField>
-      <Polygon fill="#f2f2f2" layoutX="563.0" layoutY="510.0" points="-28.0, 9.0, 23.0, 9.0, -3.0, -35.0" rotate="180.0" stroke="#00000029" strokeType="INSIDE" />
+      <Polygon fill="#ebf1f5" layoutX="563.0" layoutY="510.0" points="-28.0, 9.0, 23.0, 9.0, -3.0, -35.0" rotate="180.0" stroke="#00000029" strokeType="INSIDE" />
       <Text layoutX="1079.0" layoutY="615.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag Type:" />
       <Text layoutX="1079.0" layoutY="650.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag Value:" />
       <TextField fx:id="newTagType_text" layoutX="1147.0" layoutY="727.0" prefHeight="24.0" prefWidth="120.0">
@@ -147,36 +140,42 @@
       <Button fx:id="createAlbum_searchres" layoutX="209.0" layoutY="156.0" mnemonicParsing="false" onAction="#handleCreateAlbumSearchRes" prefHeight="25.0" prefWidth="60.0" text="Create" />
       <Text layoutX="45.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Album from Search Results?" />
       <TextField fx:id="createAlbum_searchres_name" layoutX="39.0" layoutY="156.0" prefHeight="25.0" prefWidth="161.0" promptText="new album name" />
-      <DatePicker fx:id="search_date1" editable="false" layoutX="39.0" layoutY="86.0" prefHeight="25.0" prefWidth="101.0" promptText="date 1  --&gt;" />
-      <DatePicker fx:id="search_date2" editable="false" layoutX="167.0" layoutY="86.0" prefHeight="25.0" prefWidth="101.0" promptText="date 2  --&gt;" />
-      <Text layoutX="148.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="to" />
+      <DatePicker fx:id="search_date1" editable="false" layoutX="39.0" layoutY="86.0" prefHeight="25.0" prefWidth="108.0" promptText="date 1  --&gt;" />
+      <DatePicker fx:id="search_date2" editable="false" layoutX="163.0" layoutY="86.0" prefHeight="25.0" prefWidth="108.0" promptText="date 2  --&gt;" />
+      <Text layoutX="150.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="to" />
       <Button fx:id="searchDate_but" layoutX="305.0" layoutY="139.0" mnemonicParsing="false" onAction="#handleSearchByDate" prefHeight="42.0" prefWidth="72.0" text="Search By Date" textAlignment="CENTER" wrapText="true" />
       <Button fx:id="searchTag_but" layoutX="414.0" layoutY="139.0" mnemonicParsing="false" onAction="#handleSearchByTag" prefHeight="42.0" prefWidth="72.0" text="Search By Tag" textAlignment="CENTER" wrapText="true" />
-      <Text fx:id="error_search" fill="#bf0000" layoutX="48.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="222.19580078125">
+      <Text fx:id="error_search" fill="#bf0000" layoutX="45.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="222.19580078125">
          <font>
             <Font size="13.0" />
          </font>
       </Text>
-      <Button layoutX="809.0" layoutY="148.0" mnemonicParsing="false" onAction="#DOATHING" text="Button" />
-      <TextField fx:id="searchbytag1" layoutX="280.0" layoutY="52.0" prefHeight="25.0" prefWidth="110.0" promptText="tag type 1" />
-      <Text layoutX="394.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+      <Text layoutX="394.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Text>
-      <TextField fx:id="searchbytag11" layoutX="401.0" layoutY="52.0" prefHeight="25.0" prefWidth="110.0" promptText="tag value 1" />
-      <TextField fx:id="searchbytag12" layoutX="280.0" layoutY="103.0" prefHeight="25.0" prefWidth="110.0" promptText="tag type 2" />
+      <TextField fx:id="searchbytag" layoutX="401.0" layoutY="43.0" prefHeight="25.0" prefWidth="110.0" promptText="tag value 1" />
       <Text layoutX="394.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Text>
-      <TextField fx:id="searchbytag121" layoutX="401.0" layoutY="103.0" prefHeight="25.0" prefWidth="110.0" promptText="tag value 2" />
-      <RadioButton fx:id="search_or" layoutX="409.0" layoutY="81.0" mnemonicParsing="false" text="OR">
+      <TextField fx:id="searchbytag2" layoutX="401.0" layoutY="103.0" prefHeight="25.0" prefWidth="110.0" promptText="tag value 2" />
+      <RadioButton fx:id="search_or" layoutX="470.0" layoutY="77.0" mnemonicParsing="false" onAction="#refreshSearchRadio" text="OR">
          <toggleGroup>
             <ToggleGroup fx:id="search_radio" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="search_and" layoutX="343.0" layoutY="81.0" mnemonicParsing="false" text="AND" toggleGroup="$search_radio" />
+      <RadioButton fx:id="search_and" layoutX="413.0" layoutY="77.0" mnemonicParsing="false" onAction="#refreshSearchRadio" text="AND" toggleGroup="$search_radio" />
+      <ComboBox fx:id="tagTypesBox1" layoutX="282.0" layoutY="43.0" prefHeight="25.0" prefWidth="108.0" promptText="tag type 1" visibleRowCount="7" />
+      <ComboBox fx:id="tagTypesBox2" layoutX="283.0" layoutY="103.0" prefHeight="25.0" prefWidth="108.0" promptText="tag type 2" visibleRowCount="7" />
+      <RadioButton fx:id="search_single" layoutX="290.0" layoutY="77.0" mnemonicParsing="false" onAction="#refreshSearchRadio" selected="true" text="Single Tag" toggleGroup="$search_radio" />
+      <Text fx:id="error_photo" fill="#bf0000" layoutX="230.0" layoutY="708.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="332.19580078125">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#1c68a6" layoutX="861.0" layoutY="811.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Fin Herbig and Karnaa Mistry  |  Group 10  |  CS213 Spring 2021" textAlignment="RIGHT" wrappingWidth="454.724609375" />
    </children>
 </AnchorPane>

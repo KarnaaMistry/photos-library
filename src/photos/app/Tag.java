@@ -1,10 +1,6 @@
 package photos.app;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import photos.view.PhotosController;
 
 public class Tag implements Serializable {
 	
@@ -18,19 +14,7 @@ public class Tag implements Serializable {
 	public Tag(String tname, String tval) {
 		this.tagname = tname;
 		this.tagvalue = tval;
-		
-		//User current = PhotosController.currUser;
-		//if (!current.getTagTypes().contains(tname)) {
-		//	current.getTagTypes().add(tname);
-		//}
 	}
-	
-	/*
-	public Tag(String tname, String tval, int flag) {
-		this.tagname = tname;
-		this.tagvalue = tval;
-	}
-	*/
 	
 	public String getTagname() {
 		return this.tagname;

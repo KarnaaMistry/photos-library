@@ -3,8 +3,6 @@ package photos.app;
 import java.io.*;
 import java.util.List;
 
-import javafx.scene.image.Image;
-
 import java.util.ArrayList;
 
 public class User implements Serializable {
@@ -18,16 +16,13 @@ public class User implements Serializable {
 	private String username;
 	private List<Album> albums;
 	private List<String> tagTypes;
-	
-	//public transient List<Image> userImages;
-	
+
 	public User(String username) {
 		this.username = username;
 		this.albums = new ArrayList<Album>();
 		this.tagTypes = new ArrayList<String>();
 		this.tagTypes.add("location");
 		this.tagTypes.add("person");
-		//this.userImages = new ArrayList<Image>();
 	}
 	
 	public String getUsername() {
@@ -76,10 +71,7 @@ public class User implements Serializable {
 		return true;
 	}
 	
-	//public List<Image> getUserImages() {
-	//	return this.userImages;
-	//}
-	
+
 	public static void writeUser(User user) throws FileNotFoundException, IOException {
 		File myUser = new File(user.getUsername() + ".dat");
 		ObjectOutputStream oos = new ObjectOutputStream(

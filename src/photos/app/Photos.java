@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.io.*;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -56,7 +54,6 @@ public class Photos extends Application {
 			try {
 				u = User.readUser(str);
 			} catch (ClassNotFoundException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			admin.loadUser(u);
@@ -86,44 +83,23 @@ public class Photos extends Application {
 			try {
 				User.writeUser(u);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 
+	/**
+	 * The main method that handles the Photos application.
+	 * @param args		command line arguments
+	 */
 	public static void main(String[] args) {
 		
 		admin = loadAdmin();
-		//test code
-		
-		//for (User e : admin.getUserlist()) {
-		//	if (e.getUsername().equals("karndog")) {
-		//		e.addAlbum("Fire Mixtape");
-		//		e.getAlbums().get(0).addPhoto(new Photo("data/stockphotos/cat_hat.png"));
-		//	}
-		//}
+	
 
-		/*
-		if (myPhoto.addTag("location", "New Brunswick")) { System.out.println("1 Success"); }
-		if (!myPhoto.addTag("location", "New York")) { System.out.println("2 Failure"); }
-		if (myPhoto.addTag("person", "Karnaa")) { System.out.println("3 Success"); }
-		if (myPhoto.addTag("person", "Fin")) { System.out.println("4 Success"); }
-		
-		List<Tag> taglist = myPhoto.getTags();
-		
-		for (Tag t : taglist) {
-			System.out.println(t.getTagname() + ", " + t.getTagvalue());
-		}
-		
-		System.out.println("``");
-		
-		for (String str : Tag.tagTypes) {
-			System.out.println(str);
-		}
-		*/
 		
 		launch(args);
+		
 		
 		saveAdmin();
 		

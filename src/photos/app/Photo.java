@@ -1,7 +1,7 @@
 package photos.app;
 
 import java.util.Calendar;
-import java.util.List;
+import java.util.ArrayList;
 
 import javafx.scene.image.Image;
 import photos.view.PhotosController;
@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
-import java.util.ArrayList;
+
 
 public class Photo implements Serializable {
 	
@@ -29,7 +29,6 @@ public class Photo implements Serializable {
 		this.tags = new ArrayList<Tag>();
 		File f = new File(filepath);
 		
-		System.out.println("X = " + filepath);
 		date = Calendar.getInstance();
 		date.setTimeInMillis(f.lastModified());
 		date.set(Calendar.MILLISECOND,0);
@@ -40,11 +39,9 @@ public class Photo implements Serializable {
     	try {
 			input = new FileInputStream(filepath);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	PhotosController.userImages.put(filepath, new Image(input));
-    	//PhotosController.currUser.getUserImages().add(new Image(input));
 		
 	}
 	
@@ -53,26 +50,7 @@ public class Photo implements Serializable {
 		this.caption = caption;
 
 	}
-	
-	
-	public boolean addTag(String tname, String tvalue) {
-		String name = tname.trim();
-		String value = tvalue.trim();
-		
-		if (tname.equalsIgnoreCase("location")) {
-			for (Tag t : this.tags) {
-				if (t.getTagname().equalsIgnoreCase("location")) { return false; }
-			}
-		}
-		
-		Tag x = new Tag(name, value);
-		if (this.tags.contains(x)) { return false; }
-		
-		this.tags.add(x);
-		return true;
-	
-	}
-	
+
 	public boolean addTag(Tag t) {
 		String name = t.getTagname();
 		
@@ -127,7 +105,6 @@ public class Photo implements Serializable {
 			return false;
 		}
 		Photo p1 = this;
-		//System.out.println("XX: " + p1.getFilepath());
 		return p1.getFilepath().equals(((Photo)o).getFilepath());
 	}
 	

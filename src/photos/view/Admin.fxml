@@ -8,17 +8,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photos.view.AdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photos.view.AdminController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="413.0" layoutX="207.0" layoutY="183.0" stroke="#00000029" strokeType="INSIDE" width="312.0" />
-      <Text layoutX="561.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator Subsystem" textAlignment="CENTER">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebf1f5" height="413.0" layoutX="207.0" layoutY="183.0" stroke="#00000029" strokeType="INSIDE" width="312.0" />
+      <Text fill="#1c68a6" layoutX="561.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator Subsystem" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="606.0" layoutY="64.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Photos" textAlignment="CENTER">
+      <Text fill="#1c68a6" layoutX="559.0" layoutY="81.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Photos" textAlignment="CENTER">
          <font>
-            <Font name="System Bold" size="33.0" />
+            <Font name="System Bold" size="62.0" />
          </font>
       </Text>
       <Button fx:id="quit_button" layoutX="1247.0" layoutY="21.0" mnemonicParsing="false" onAction="#quit" prefHeight="30.0" prefWidth="51.0" text="Quit">
@@ -55,5 +55,6 @@
             <Font size="14.0" />
          </font>
       </Text>
+      <Text fill="#1c68a6" layoutX="851.0" layoutY="802.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Fin Herbig and Karnaa Mistry  |  Group 10  |  CS213 Spring 2021" textAlignment="RIGHT" wrappingWidth="454.724609375" />
    </children>
 </AnchorPane>

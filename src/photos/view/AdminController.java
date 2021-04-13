@@ -2,25 +2,21 @@ package photos.view;
 
 import photos.app.*;
 import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Optional;
 
-import com.sun.javafx.logging.Logger;
-
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -57,7 +53,6 @@ public class AdminController {
 	}
 	
 	@FXML void quit(ActionEvent event) {
-		//Photos.saveAdmin();
 		Stage stage = (Stage) quit_button.getScene().getWindow();
 		stage.close();
 	}
@@ -70,6 +65,9 @@ public class AdminController {
 		}
 		if (userList.getSelectionModel().getSelectedIndex() < 0) {
 			error_delete.setText("error: must have a user selected");
+			return;
+		}
+		if (!confirm()) {
 			return;
 		}
 		Photos.admin.delUser(userList.getSelectionModel().getSelectedItem());
@@ -105,6 +103,21 @@ public class AdminController {
 			userList.getItems().add(u.getUsername());
 		}
 		FXCollections.sort(userList.getItems());
+	}
+	
+	boolean confirm() {
+
+		boolean flag = false;
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirm");
+		alert.setHeaderText("Are you sure you want to delete \"" + userList.getSelectionModel().getSelectedItem() + "\"?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.isPresent() && result.get() == ButtonType.OK) {
+		    flag = true;
+		}
+		return flag;
+		
 	}
 
 

@@ -2,12 +2,7 @@ package photos.view;
 
 import photos.app.*;
 import java.io.IOException;
-import java.util.Optional;
 
-import com.sun.javafx.logging.Logger;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,10 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -33,7 +25,6 @@ public class LoginController {
 	
 	public void initialize() {
 		login_error.setText("");
-		//loading.setText("");
 		Photos.saveAdmin();
 	}
 	
@@ -78,6 +69,10 @@ public class LoginController {
 		 stage.close();
 	}
 	
+	/**
+	 * Called from <code>Photos</code>, left as placeholder, initialization handled in <code>initialize()</code>.
+	 * @param mainStage		primary JavaFX stage
+	 */
 	public void start(Stage mainStage) { 
 		
 		
