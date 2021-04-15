@@ -23,9 +23,24 @@ import javafx.stage.Stage;
  */
 public class LoginController {
 	
+	/**
+	 * Login button.
+	 */
 	@FXML Button login_button;
+	
+	/**
+	 * Quit button.
+	 */
 	@FXML Button quit_button;
+	
+	/**
+	 * Username text field.
+	 */
 	@FXML TextField login_username;
+	
+	/**
+	 * Login error indication.
+	 */
 	@FXML Text login_error;
 	
 	/**

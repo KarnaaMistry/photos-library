@@ -29,13 +29,44 @@ import javafx.stage.Stage;
  */
 public class AdminController {
 
+	/**
+	 * Log out button.
+	 */
 	@FXML Button logout_button;
+	
+	/**
+	 * Quit button.
+	 */
 	@FXML Button quit_button;
+	
+	/**
+	 * Delete user button.
+	 */
 	@FXML Button delete_user;
+	
+	/**
+	 * Create user button.
+	 */
 	@FXML Button create_user;
+	
+	/**
+	 * ListView of users.
+	 */
 	@FXML ListView<String> userList;
+	
+	/**
+	 * Error indicator for user creation.
+	 */
 	@FXML Text error_create;
+	
+	/**
+	 * Error indicator for user deletion.
+	 */
 	@FXML Text error_delete;
+	
+	/**
+	 * New username.
+	 */
 	@FXML TextField new_username;
 	
 	/**

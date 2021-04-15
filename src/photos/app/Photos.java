@@ -20,7 +20,7 @@ import photos.view.LoginController;
 public class Photos extends Application {
 	
 	/**
-	 * Initializes the admin.
+	 * The single admin object of the application.
 	 * @see Admin
 	 */
 	public static Admin admin;
@@ -83,7 +83,8 @@ public class Photos extends Application {
 	}
 	
 	/**
-	 * Saves the current state of the admin when they are logged out to continue operations next time they are logged in.
+	 * Saves the current state of the admin when they are logged out to continue operations upon the next login.
+	 * Accomplishes this by writing the <code>User</code> objects to data files.
 	 * @see User
 	 */
 	public static void saveAdmin() {
@@ -119,11 +120,8 @@ public class Photos extends Application {
 	public static void main(String[] args) {
 		
 		admin = loadAdmin();
-	
-
 		
 		launch(args);
-		
 		
 		saveAdmin();
 		

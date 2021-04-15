@@ -13,6 +13,9 @@ import java.util.ArrayList;
  */
 public class User implements Serializable {
 	
+	/**
+	 * The data storage directory.
+	 */
 	public static final String storeDir = "data";
 	
 	/**
@@ -38,7 +41,7 @@ public class User implements Serializable {
 
 	/**
 	 * Constructor class for new instances of users which sets the username along with predefined tag types.
-	 * @param username
+	 * @param username		the username
 	 */
 	public User(String username) {
 		this.username = username;
@@ -143,6 +146,7 @@ public class User implements Serializable {
 	 * @param filename						A <code>String</code> containing the filename of the user data.
 	 * @throws ClassNotFoundException		If the class cannot be found
 	 * @throws IOException					If there is an IOExeption
+	 * @return								The user that was read
 	 */
 	public static User readUser(String filename) throws IOException, ClassNotFoundException {
 		ObjectInputStream ois = new ObjectInputStream(

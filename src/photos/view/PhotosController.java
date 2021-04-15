@@ -54,74 +54,276 @@ public class PhotosController {
 	 * @see User
 	 */
 	public static User currUser;
+	
 	/**
 	 * Represents the currently selected album.
 	 * @see Album
 	 */
 	public static Album currAlbum;
+	
 	/**
-	 * A <code>Map</code> hashing the filepath to the <code>Image</code>.
-	 * @see Image
+	 * A <code>Map</code> hashing the filepath to the actual image.
 	 */
 	public static Map<String, Image> userImages;
+	
 	/**
 	 * A <code>boolean</code> indicating that the images list should display the search result.
 	 */
 	public static boolean searchResultMode;
 	
+	/**
+	 * Logout button.
+	 */
 	@FXML Button logout_but;
+	
+	/**
+	 * Quit button.
+	 */
 	@FXML Button quit_but;
+	
+	/**
+	 * Username text display.
+	 */
 	@FXML Text username_display;
+	
+	/**
+	 * Photo display area.
+	 */
 	@FXML ImageView photo_display;
+	
+	/**
+	 * ListView of user's albums.
+	 */
 	@FXML ListView<String> albumListView;
+	
+	/**
+	 * ListView of current album's photos.
+	 */
 	@FXML ListView<Photo> photoListView;
-	@FXML ObservableList<Photo> photoList;
+	
+	/**
+	 * Delete album button.
+	 */
 	@FXML Button deleteAlb_but;
+	
+	/**
+	 * Create album button.
+	 */
 	@FXML Button createAlb_but;
+	
+	/**
+	 * Rename album button.
+	 */
 	@FXML Button renameAlb_but;
+	
+	/**
+	 * Album name text field.
+	 */
 	@FXML TextField albumField;
+	
+	/**
+	 * Indicator for errors involving album interaction.
+	 */
 	@FXML Text error_album;
-	@FXML Text alb_numphot;
-	@FXML Text alb_daterng;
+	
+	/**
+	 * Button to clear album name textfield.
+	 */
 	@FXML Button alb_clearname;
+	
+	/**
+	 * Add photo button.
+	 */
 	@FXML Button addpho_but;
+	
+	/**
+	 * Remove photo button.
+	 */
 	@FXML Button rempho_but;
+	
+	/**
+	 * Next photo button.
+	 */
 	@FXML Button nextpho_but;
+	
+	/**
+	 * Previous photo button.
+	 */
 	@FXML Button prevpho_but;
+	
+	/**
+	 * Caption text.
+	 */
 	@FXML TextArea applyCap;
+	
+	/**
+	 * Update caption button.
+	 */
 	@FXML Button applyCap_but;
+	
+	/**
+	 * Clear caption text button.
+	 */
 	@FXML Button clearCap_but;
+	
+	/**
+	 * Destination album text for copy/move.
+	 */
 	@FXML TextField toAlbum;
+	
+	/**
+	 * Clear destination album text for copy/move.
+	 */
 	@FXML Button clearToAlbum;
+	
+	/**
+	 * Copy photo button.
+	 */
 	@FXML Button copy_but;
+	
+	/**
+	 * Move photo button.
+	 */
 	@FXML Button move_but;
+	
+	/**
+	 * Error text for copyping/moving.
+	 */
 	@FXML Text error_copymove;
+	
+	/**
+	 * Date taken display.
+	 */
 	@FXML Text date_taken;
+	
+	/**
+	 * ListView of selected photo's tags.
+	 */
 	@FXML ListView<Tag> tagListView;
+	
+	/**
+	 * ObservableList of the current user's defined tag types.
+	 */
 	@FXML ObservableList<String> userTagTypes;
+	
+	/**
+	 * Add tag button.
+	 */
 	@FXML Button addTag_but;
+	
+	/**
+	 * Delete tag button.
+	 */
 	@FXML Button delTag_but;
+	
+	/**
+	 * ComboBox to select a tag type.
+	 */
 	@FXML ComboBox<String> tagTypesBox;
+	
+	/**
+	 * New tag value.
+	 */
 	@FXML TextField newTag_text;
+	
+	/**
+	 * New tag type.
+	 */
 	@FXML TextField newTagType_text;
+	
+	/**
+	 * New tag type button.
+	 */
 	@FXML Button newTagType_but;
+	
+	/**
+	 * Text indicating an error with tag addition.
+	 */
 	@FXML Text tag_error;
+	
+	/**
+	 * Text indicating an error with tag type addition.
+	 */
 	@FXML Text tagType_error;
+	
+	/**
+	 * Button to create an album from search results.
+	 */
 	@FXML Button createAlbum_searchres;
+	
+	/**
+	 * Name of album to create from search results.
+	 */
 	@FXML TextField createAlbum_searchres_name;
+	
+	/**
+	 * Start date for search by date.
+	 */
 	@FXML DatePicker search_date1;
+	
+	/**
+	 * End date for search by date.
+	 */
 	@FXML DatePicker search_date2;
+	
+	/**
+	 * Primary tag for search by tag.
+	 */
 	@FXML TextField searchbytag;
+	
+	/**
+	 * Secondary tag for search by tag.
+	 */
 	@FXML TextField searchbytag2;
+	
+	/**
+	 * Button to search by date.
+	 */
 	@FXML Button searchDate_but;
+	
+	/**
+	 * Button to search by tag.
+	 */
 	@FXML Button searchTag_but;
+	
+	/**
+	 * Error text involving a search.
+	 */
 	@FXML Text error_search;
+	
+	/**
+	 * Group for search by tag radio buttons.
+	 */
 	@FXML ToggleGroup search_radio;
+	
+	/**
+	 * Selected for searching by tag using OR.
+	 */
 	@FXML RadioButton search_or;
+	
+	/**
+	 * Selected for searching by tag using AND.
+	 */
 	@FXML RadioButton search_and;
+	
+	/**
+	 * Selected for searching by single tag.
+	 */
 	@FXML RadioButton search_single;
+	
+	/**
+	 * Tag type for primary tag in search.
+	 */
 	@FXML ComboBox<String> tagTypesBox1;
+	
+	/**
+	 * Tag type for secondary tag in search.
+	 */
 	@FXML ComboBox<String> tagTypesBox2;
+	
+	/**
+	 * Error indicator involving photo operations.
+	 */
 	@FXML Text error_photo;
 
 	/**
@@ -1273,7 +1475,7 @@ public class PhotosController {
 	
 	/**
 	 * A popup confirmation for the deletion of a photo, tag, or album.
-	 * @return		A flag indicating if the button has functioned correctly.
+	 * @return		A flag indicating if the button has functioned true.
 	 */
 	boolean confirm(String type) {
 
