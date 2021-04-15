@@ -41,12 +41,32 @@ import javafx.stage.Stage;
 import javafx.scene.control.ListCell;
 
 
-
+/**
+ * PhotosController is the class which handles the javaFX functions and display for the main photos page.
+ * 
+ * @author Fin Herbig
+ * @author Karnaa Mistry
+ */
 public class PhotosController {
 	
+	/**
+	 * Represents the user currently logged in.
+	 * @see User
+	 */
 	public static User currUser;
+	/**
+	 * Represents the currently selected album.
+	 * @see Album
+	 */
 	public static Album currAlbum;
+	/**
+	 * A <code>Map</code> hashing the filepath to the <code>Image</code>.
+	 * @see Image
+	 */
 	public static Map<String, Image> userImages;
+	/**
+	 * A <code>boolean</code> indicating that the images list should display the search result.
+	 */
 	public static boolean searchResultMode;
 	
 	@FXML Button logout_but;
@@ -104,6 +124,9 @@ public class PhotosController {
 	@FXML ComboBox<String> tagTypesBox2;
 	@FXML Text error_photo;
 
+	/**
+	 * Updates <code>currAlbum</code> with the album selected by the user.
+	 */
 	void selectAlbum() {
 		if (albumListView.getSelectionModel().getSelectedIndex() < 0) { photoListView.getItems().clear(); currAlbum = null; return; }
 		String name = albumListView.getSelectionModel().getSelectedItem().substring(0,albumListView.getSelectionModel().getSelectedItem().indexOf('\n'));
@@ -124,6 +147,10 @@ public class PhotosController {
 
 	}
 	
+	/**
+	 * Updates the image display with the selected photo along with all respective information including date, tags, and captions.
+	 * @see Photo
+	 */
 	void selectPhoto() {
 		if (searchResultMode) {
 			if (photoListView.getSelectionModel().getSelectedIndex() < 0) {
@@ -195,10 +222,18 @@ public class PhotosController {
 		
 	}
 	
+	/**
+	 * Resets the tagType_error field to a blank string.
+	 */
 	void selectTag() {
 		tagType_error.setText("");
 	}
 	
+	/**
+	 * Using the userImages map, displays the photos in an album in a list.
+	 * @see Photo
+	 * @see Album
+	 */
 	void loadImages() {
 		userImages = new HashMap<String, Image>();
 		for (Album x : currUser.getAlbums()) {
@@ -215,6 +250,10 @@ public class PhotosController {
 		}
 	}
 	
+	/**
+	 * Loads every tag type the user has initialized and places them in drop down menus.
+	 * @see User
+	 */
 	void loadTagTypes() {
 		clearAllErrors();
 		userTagTypes = FXCollections.observableList(currUser.getTagTypes());
@@ -224,6 +263,10 @@ public class PhotosController {
 		tagTypesBox2.setItems(userTagTypes);
 	}
 	
+	/**
+	 * Initializes all of the displays on the page.
+	 * @throws FileNotFoundException	when an image cannot be located on the local machine.
+	 */
 	public void initialize() throws FileNotFoundException {
 		
 		searchResultMode = false;
@@ -268,6 +311,12 @@ public class PhotosController {
 
 	}
 	
+	/**
+	 * Finds all images located within a date range and updates the image list with the results.
+	 * @param event		Action event related to the user pressing the search by date button.
+	 * @see Album
+	 * @see Photo
+	 */
 	@FXML void handleSearchByDate(ActionEvent event) {
 		if (search_date1.getValue() == null || search_date2.getValue() == null) {
 			error_search.setText("error: invalid date");
@@ -326,6 +375,13 @@ public class PhotosController {
 		
 	}
 
+	/**
+	 * Finds all images with the given tag and logical operations for multiple tags.
+	 * @param event		Action event related to the user pressing the search by date button.
+	 * @see Album
+	 * @see Photo
+	 * @see Tag
+	 */
 	@FXML void handleSearchByTag(ActionEvent event) {
 		
 		searchbytag.setText(searchbytag.getText().trim());
@@ -480,6 +536,11 @@ public class PhotosController {
 
 	}
 	
+	/*
+	 * Creates a new album from the search results.
+	 * @see Album
+	 * @see Photo
+	 */
 	@FXML void handleCreateAlbumSearchRes(ActionEvent event) {
 		
 		if (!searchResultMode) {
@@ -523,6 +584,10 @@ public class PhotosController {
 
 	}
 	
+	/**
+	 * Handles the addition of a new tag type to the user.
+	 * @param event		Action event corresponding to the create tag type button.
+	 */
 	@FXML void handleNewTagType(ActionEvent event) {
 		newTagType_text.setText(newTagType_text.getText().trim().toLowerCase());
 		String newtag = newTagType_text.getText();
@@ -546,6 +611,12 @@ public class PhotosController {
 		newTagType_text.setText("");
 	}
 	
+	/**
+	 * Handles the addition of a new tag to a specific photo.
+	 * @param event		Action event corresponding to the add tag button.
+	 * @see Photo
+	 * @see Tag
+	 */
 	@FXML void handleAddTag(ActionEvent event) {
 		newTag_text.setText(newTag_text.getText().trim());
 		String val = newTag_text.getText();
@@ -576,6 +647,12 @@ public class PhotosController {
 		refreshTagListView(ph, tag);
 	}
 	
+	/**
+	 * Handles the deletion of a tag attached to a selected photo.
+	 * @param event Action event corresponding to the delete tag button.
+	 * @see Photo
+	 * @see Tag
+	 */
 	@FXML void handleDelTag(ActionEvent event) {
 		if (photoListView.getSelectionModel().getSelectedIndex() < 0 || (!searchResultMode && albumListView.getSelectionModel().getSelectedIndex() < 0)) {
 			tag_error.setText("error: no photo selected");
@@ -595,6 +672,12 @@ public class PhotosController {
 		refreshTagListView(ph);
 	}
 	
+	/**
+	 * Handles the copying of one photo to another specified album.
+	 * @param event		Action event corresponding to the copy button.
+	 * @see Photo
+	 * @see Album
+	 */
 	@FXML void handleCopy(ActionEvent event) {
 		toAlbum.setText(toAlbum.getText().trim());
 		if (searchResultMode) {
@@ -651,6 +734,10 @@ public class PhotosController {
 		
 	}
 	
+	/**
+	 * Handles the transfer of a photo in one album to another specified album.
+	 * @param event		Action event corresponding to the move button.
+	 */
 	@FXML void handleMove(ActionEvent event) {
 		if (searchResultMode) {
 			error_copymove.setText("error moving: select an initial album");
@@ -686,6 +773,10 @@ public class PhotosController {
 		refreshPhotoListView();
 	}
 	
+	/**
+	 * Handles the update of a photos caption.
+	 * @param event		Action event corresponding to the update caption button.
+	 */
 	@FXML void handleApplyCaption(ActionEvent event) {
 		if (photoListView.getSelectionModel().getSelectedIndex() < 0) { return; }
 		applyCap.setText(applyCap.getText().trim());
@@ -695,8 +786,16 @@ public class PhotosController {
 		refreshPhotoListView(p);
 	}
 	
+	/**
+	 * Handles the clearing of the photos caption text field.
+	 * @param event		Action event corresponding to the clear button.
+	 */
 	@FXML void handleClearCap(ActionEvent event) { applyCap.setText(""); }
 	
+	/**
+	 * Handles the selection the photo below the currently selected photo.
+	 * @param event		Action event corresponding to the next button.
+	 */
 	@FXML void handleNextPhoto(ActionEvent event) {
 		int index = photoListView.getSelectionModel().getSelectedIndex();
 		if (index < 0) { 
@@ -710,6 +809,10 @@ public class PhotosController {
 		}
 	}
 	
+	/**
+	 * Handles the selection the photo above the currently selected photo.
+	 * @param event		Action event corresponding to the prev button.
+	 */
 	@FXML void handlePrevPhoto(ActionEvent event) {
 		int index = photoListView.getSelectionModel().getSelectedIndex();
 		if (index < 0) { 
@@ -723,6 +826,11 @@ public class PhotosController {
 		}
 	}
 	
+	/**
+	 * Handles the creation of a new album with a specified name.
+	 * @param event		Action event corresponding to the create album button.
+	 * @see Album
+	 */
 	@FXML void handleCreateAlbum(ActionEvent event) {
 		albumField.setText(albumField.getText().trim());
 		String newalb = albumField.getText();
@@ -739,6 +847,11 @@ public class PhotosController {
 		refreshAlbumListView(newalb);
 	}
 	
+	/**
+	 * Handles the deletion of a selected album without deleting the photos from other albums.
+	 * @param event		Action event corresponding to the delete album button.
+	 * @see Album
+	 */
 	@FXML void handleDeleteAlbum(ActionEvent event) {
 		if (searchResultMode) {
 			error_album.setText("error deleting: must have an album selected");
@@ -759,6 +872,11 @@ public class PhotosController {
 		refreshTagListView(null);
 	}
 	
+	/**
+	 * Handles the renaming of an album.
+	 * @param event		Action event corresponding to the rename album button.
+	 * @see Album
+	 */
 	@FXML void handleRenameAlbum(ActionEvent event) {
 		albumField.setText(albumField.getText().trim());
 		String renalb = albumField.getText();
@@ -785,6 +903,12 @@ public class PhotosController {
 		photoListView.getSelectionModel().select(x);
 	}
 	
+	/**
+	 * Handles the adding of a photo to an album while checking if that photo already exists in another album.
+	 * @param event		Action event corresponding to the add photo button.
+	 * @see Album
+	 * @see Photo
+	 */
 	@FXML void handleAddPhoto(ActionEvent event) {
 		if (searchResultMode) {
 			error_photo.setText("error adding: must have an album selected");
@@ -821,6 +945,12 @@ public class PhotosController {
 		refreshPhotoListView(p);
 	}
 	
+	/**
+	 * Handles removing a photo from an album
+	 * @param event		Action event corresponding to the remove photo button.
+	 * @see Album
+	 * @see Photo
+	 */
 	@FXML void handleRemovePhoto(ActionEvent event) {
 		if (searchResultMode) {
 			error_photo.setText("error removing: must have an album selected");
@@ -848,6 +978,11 @@ public class PhotosController {
 		
 	}
 	
+	/**
+	 * Returns the user to the login screen.
+	 * @param event		Action event representing the logout button being pressed.
+	 * @see LoginController
+	 */
 	@FXML void logout(ActionEvent event) {
 		Parent p = null;
         try {
@@ -862,15 +997,27 @@ public class PhotosController {
         mainStage.show();
 	}
 	
+	/**
+	 * Quits the photos program
+	 * @param event		Action event representing the quit button being pressed.
+	 */
 	@FXML void quit(ActionEvent event) {
 		 Stage stage = (Stage) quit_but.getScene().getWindow();
 		 stage.close();
 	}
 	
+	/**
+	 * Handles the clearing of the album name text field.
+	 * @param event		Action event representing the clear button being pressed next to the album text field.
+	 */
 	@FXML void handleAlbumNClear(ActionEvent event) {
 		albumField.setText("");
 	}
 	
+	/**
+	 * Handles the clearing of the move/copy album text field.
+	 * @param event		Action event representing the clear being pressed next to the move/copy album text field.
+	 */
 	@FXML void handleToAlbumClear(ActionEvent event) {
 		toAlbum.setText("");
 	}
@@ -884,6 +1031,9 @@ public class PhotosController {
 		
 	}
 	
+	/**
+	 * Enables the second tag text field and drop down if the AND or OR radio buttons are selected.
+	 */
 	@FXML void refreshSearchRadio() {
 		RadioButton selected = (RadioButton) search_radio.getSelectedToggle();
 		String str = selected.getText();
@@ -899,6 +1049,10 @@ public class PhotosController {
 		}
 	}
 	
+	/**
+	 * Refreshes the album list with the current contents of the users albums.
+	 * @see User
+	 */
 	void refreshAlbumListView() {
 		albumListView.getItems().clear();
 		for (Album alb : currUser.getAlbums()) {
@@ -908,6 +1062,11 @@ public class PhotosController {
 		clearAllErrors();
 	}
 	
+	/**
+	 * Refreshes the album list with the current contents of the users albums and select the specified album.
+	 * @param desiredAlb	Album to be selected after refresh.
+	 * @see User
+	 */
 	void refreshAlbumListView(String desiredAlb) {
 		albumListView.getItems().clear();
 		for (Album alb : currUser.getAlbums()) {
@@ -924,6 +1083,11 @@ public class PhotosController {
 		clearAllErrors();
 	}
 	
+	/**
+	 * Refreshes the photo list with the current contents of the selected album.
+	 * @see Album
+	 * @see Photo
+	 */
 	void refreshPhotoListView() {
 		if (searchResultMode) {
 			List<Photo> temp = new ArrayList<Photo>();
@@ -949,6 +1113,12 @@ public class PhotosController {
 		refreshTagListView(null);
 	}
 	
+	/**
+	 * Refreshes the photo list view and selects the specified photo.
+	 * @param ph		The photo to be selected.
+	 * @see Album
+	 * @see Photo
+	 */
 	void refreshPhotoListView(Photo ph) {
 		if (searchResultMode) {
 			List<Photo> temp = new ArrayList<Photo>();
@@ -976,6 +1146,12 @@ public class PhotosController {
 		refreshTagListView(ph);
 	}
 	
+	/**
+	 * Refreshes the tag list of a specific photo.
+	 * @param ph		The photo whose tag list is being refreshed.
+	 * @see Photo
+	 * @see Tag
+	 */
 	void refreshTagListView(Photo ph) {
 
 		
@@ -989,6 +1165,13 @@ public class PhotosController {
 
 	}
 	
+	/**
+	 * Refreshes the tag list of a specific photo and selects the specified tag.
+	 * @param ph		The photo whose tag list is being refreshed.
+	 * @param ta		The tag to be selected after refresh.
+	 * @see Photo
+	 * @see Tag
+	 */
 	void refreshTagListView(Photo ph, Tag ta) {
 		tag_error.setText("");
 		tagListView.getItems().clear();
@@ -1002,6 +1185,9 @@ public class PhotosController {
 
 	}
 	
+	/**
+	 * Manages the cell factory for the album list view.
+	 */
 	void albumListViewCell() {
 		albumListView.setCellFactory(param -> new ListCell<String>(){
             @Override
@@ -1018,6 +1204,9 @@ public class PhotosController {
         });
 	}
 	
+	/**
+	 * Manages the cell factory for the photo list view.
+	 */
 	void photoListViewCell() {
 		photoListView.setCellFactory(param -> new ListCell<Photo>(){
 
@@ -1050,6 +1239,9 @@ public class PhotosController {
         
 	}
 	
+	/**
+	 * Manages the cell factory for the tag list view.
+	 */
 	void tagListViewCell() {
 		tagListView.setCellFactory(param -> new ListCell<Tag>(){
             @Override
@@ -1067,6 +1259,9 @@ public class PhotosController {
         });
 	}
 	
+	/**
+	 * Clears any error messages which may be currently displayed.
+	 */
 	void clearAllErrors() {
 		error_album.setText("");
 		error_copymove.setText("");
@@ -1076,6 +1271,10 @@ public class PhotosController {
 		error_photo.setText("");
 	}
 	
+	/**
+	 * A popup confirmation for the deletion of a photo, tag, or album.
+	 * @return		A flag indicating if the button has functioned correctly.
+	 */
 	boolean confirm(String type) {
 
 		boolean flag = false;

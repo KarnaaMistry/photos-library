@@ -11,11 +11,26 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import photos.view.LoginController;
 
+/**
+ * Photos is the controller class which starts the program and handles admin initialization.
+ * 
+ * @author Fin Herbig
+ * @author Karnaa Mistry
+ */
 public class Photos extends Application {
 	
+	/**
+	 * Initializes the admin.
+	 * @see Admin
+	 */
 	public static Admin admin;
 	
 	@Override
+	/**
+	 * Starts the application.
+	 * @param primaryStage		primary JavaFX stage
+	 * @see LoginController
+	 */
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader loader = new FXMLLoader();   
 		
@@ -35,6 +50,11 @@ public class Photos extends Application {
 
 	}
 	
+	/**
+	 * Creates the admin and stores all user data with it.
+	 * @return		The initialized admin.
+	 * @see Admin
+	 */
 	public static Admin loadAdmin() {
 		List<String> dataFiles = new ArrayList<String>();
 		File folder = new File("data");
@@ -62,6 +82,10 @@ public class Photos extends Application {
 		return admin;
 	}
 	
+	/**
+	 * Saves the current state of the admin when they are logged out to continue operations next time they are logged in.
+	 * @see User
+	 */
 	public static void saveAdmin() {
 		List<User> users = admin.getUserlist();
 		List<String> usernames = new ArrayList<String>();

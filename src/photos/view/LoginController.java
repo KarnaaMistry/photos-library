@@ -15,7 +15,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-
+/**
+ * LoginController is the class which handles the javaFX functions and display for the login page.
+ * 
+ * @author Fin Herbig
+ * @author Karnaa Mistry
+ */
 public class LoginController {
 	
 	@FXML Button login_button;
@@ -23,12 +28,20 @@ public class LoginController {
 	@FXML TextField login_username;
 	@FXML Text login_error;
 	
+	/**
+	 * Initializes the login page by adding all user data.
+	 */
 	public void initialize() {
 		login_error.setText("");
 		Photos.saveAdmin();
 	}
 	
-	
+	/**
+	 * Brings the user or admin to their respective page.
+	 * @param event			Action event representing the login button being pushed.
+	 * @throws IOException	Thrown if login path is not present.
+	 * @see User
+	 */
 	@FXML void login(ActionEvent event) throws IOException {
 
 		login_username.setText(login_username.getText().trim());
@@ -64,6 +77,10 @@ public class LoginController {
         mainStage.show();
 	}
 	
+	/**
+	 * Quits the photos program
+	 * @param event		Action event representing the quit button being pressed.
+	 */
 	@FXML void quit(ActionEvent event) {
 		 Stage stage = (Stage) quit_button.getScene().getWindow();
 		 stage.close();
