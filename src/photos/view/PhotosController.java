@@ -346,6 +346,7 @@ public class PhotosController {
 		refreshTagListView(photoListView.getSelectionModel().getSelectedItem());
 		
 		albumField.setText(name);
+		applyCap.setText("");
 
 	}
 	
